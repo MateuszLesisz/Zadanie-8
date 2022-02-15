@@ -39,6 +39,8 @@ Klikając poniższe linki, przejdziesz na stronę z podglądem instrukcji.
 
 ### [Zadanie 9 - Testy jednostkowe](./Ex9)
 
+### [Zadanie 10 - Hibernate](./Ex10)
+
 ---
 ## Zadania nieobowiązkowe
 

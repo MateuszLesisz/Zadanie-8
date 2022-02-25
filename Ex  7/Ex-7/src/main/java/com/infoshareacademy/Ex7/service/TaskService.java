@@ -76,5 +76,9 @@ public class TaskService {
         Collection<Task> task = repository.findAll();
         return task.stream().map(mapper::toDto).filter(taskDto1 -> taskDto1.getCategory().equals(category)).collect(Collectors.toList());
     }
+    public List<TaskDto> findTaskWithPhrase(String phrase) {
+        Collection<Task> task = repository.findAll();
+        return task.stream().map(mapper::toDto).filter(taskDto1 -> taskDto1.getDescription().contains(phrase)).collect(Collectors.toList());
+    }
 }
 

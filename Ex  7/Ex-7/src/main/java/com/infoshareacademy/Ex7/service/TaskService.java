@@ -13,6 +13,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,5 +50,15 @@ public class TaskService {
         return tasks.stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
+    public List<TaskDto> findTheHigherPriorityTask() {
+        Collection<Task> task = repository.findAll();
+        return task.stream().map(mapper::toDto).filter(taskDto1 -> taskDto1.getPriority() == 1).collect(Collectors.toList());
+    }
+
+    public List<TaskDto> findNextDayTask() {
+        Collection<Task> task = repository.findAll();
+        LocalDate today = LocalDate.now();
+        return task.stream().map(mapper::toDto).filter(taskDto1 -> taskDto1.getDueDate() == today.plusDays(1)).collect(Collectors.toList());
+    }
 }
 

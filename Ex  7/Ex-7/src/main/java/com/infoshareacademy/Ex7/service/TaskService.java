@@ -16,11 +16,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class TaskService {
@@ -79,6 +77,11 @@ public class TaskService {
     public List<TaskDto> findTaskWithPhrase(String phrase) {
         Collection<Task> task = repository.findAll();
         return task.stream().map(mapper::toDto).filter(taskDto1 -> taskDto1.getDescription().contains(phrase)).collect(Collectors.toList());
+    }
+
+    public Optional<Task> theMostUrgentTask() {
+        Collection<Task> task = repository.findAll();
+        return Optional.of(task.stream().sorted(Comparator.comparing(Task::getDueDate).thenComparing(Task::getPriority)).findFirst().get());
     }
 }
 

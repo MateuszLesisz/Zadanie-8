@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,11 @@ public class TaskService {
         Collection<Task> task = repository.findAll();
         LocalDate today = LocalDate.now();
         return task.stream().map(mapper::toDto).filter(taskDto1 -> taskDto1.getDueDate() == today.plusDays(1)).collect(Collectors.toList());
+    }
+
+    public List<TaskDto> descendingSortList() {
+        Collection<Task> task = repository.findAll();
+        return task.stream().map(mapper::toDto).sorted(Comparator.comparing(TaskDto::getPriority).reversed()).collect(Collectors.toList());
     }
 }
 

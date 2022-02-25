@@ -83,5 +83,10 @@ public class TaskService {
         Collection<Task> task = repository.findAll();
         return Optional.of(task.stream().sorted(Comparator.comparing(Task::getDueDate).thenComparing(Task::getPriority)).findFirst().get());
     }
+    public Map<Category, List<Task>> getMapOfCategory() {
+        Collection<Task> task = repository.findAll();
+        return task.stream().collect(Collectors.groupingBy(Task::getCategory));
+    }
+
 }
 

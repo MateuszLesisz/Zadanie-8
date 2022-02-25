@@ -2,6 +2,7 @@ package com.infoshareacademy.Ex7.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.infoshareacademy.Ex7.Enum.Category;
 import com.infoshareacademy.Ex7.dto.TaskDto;
 import com.infoshareacademy.Ex7.entity.Task;
 import com.infoshareacademy.Ex7.mappers.TaskMapper;
@@ -69,6 +70,11 @@ public class TaskService {
     public List<TaskDto> sortedByDateList() {
         Collection<Task> task = repository.findAll();
         return task.stream().map(mapper::toDto).sorted(Comparator.comparing(TaskDto::getDueDate)).collect(Collectors.toList());
+    }
+
+    public List<TaskDto> findAllTaskInCategory(Category category) {
+        Collection<Task> task = repository.findAll();
+        return task.stream().map(mapper::toDto).filter(taskDto1 -> taskDto1.getCategory().equals(category)).collect(Collectors.toList());
     }
 }
 

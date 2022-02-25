@@ -66,5 +66,9 @@ public class TaskService {
         Collection<Task> task = repository.findAll();
         return task.stream().map(mapper::toDto).sorted(Comparator.comparing(TaskDto::getPriority).reversed()).collect(Collectors.toList());
     }
+    public List<TaskDto> sortedByDateList() {
+        Collection<Task> task = repository.findAll();
+        return task.stream().map(mapper::toDto).sorted(Comparator.comparing(TaskDto::getDueDate)).collect(Collectors.toList());
+    }
 }
 
